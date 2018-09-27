@@ -1,0 +1,10 @@
+<div>
+  <mat-form-field>
+    <input matInput [(ngModel)]="subject" placeholder="Předmět transakce">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="amount" placeholder="Částka" type="number">
+  </mat-form-field>
+  <button (click)="onClickSave()" mat-button>ULOŽIT</button>
+  <button (click)="onClickStorno()" mat-button>STORNO</button>
+</div>
