@@ -1,4 +1,5 @@
 # ProjektM
+[Live ukazka](https://epenezenka.herokuapp.com/)
 ## Jak spustit na localhostu
 * [Nainstalovat nodeJs LTS](https://nodejs.org/en/)
 * globalne nainstalovat angular cli | cmd => ```npm install -g @angular/cli```
