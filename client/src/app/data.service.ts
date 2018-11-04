@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import {promise} from "selenium-webdriver";
 export enum Scenario {
   ONE = 'scenarioOne', TWO = 'scenarioTwo', THREE = 'scenarioThree', FOUR = 'scenarioFour'
 }
