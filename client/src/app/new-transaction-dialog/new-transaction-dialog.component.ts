@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {MatDialogRef} from '@angular/material';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AppComponent} from '../app.component';
 import {TransactionService} from '../transaction.service';
 import {Transaction} from '../transaction';
@@ -15,9 +15,15 @@ import {Transaction} from '../transaction';
 export class NewTransactionDialogComponent implements OnInit {
   subject = ''; // oboustranne provazano s hodnotou inputu predmetu
   amount = '';  // -||- castky
+  sign = '-'; // defaultne castku strhne
+  pickedDate = new Date();
+  title;
+
   constructor(
     public dialogRef: MatDialogRef<AppComponent>,
-    private transactionService: TransactionService) {}
+    private transactionService: TransactionService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+  }
 
   /**
    * metoda volana po kliknuti na storno
@@ -32,9 +38,12 @@ export class NewTransactionDialogComponent implements OnInit {
    */
   onClickSave(): void {
     // prida novy objekt transakce do seznamu
-    this.transactionService.push(new Transaction(Number(this.amount), this.subject, new Date()));
+    const amount = this.data.payment ? -Number(this.amount) : Number(this.amount);
+    this.transactionService.push(new Transaction(amount, this.subject, this.pickedDate));
     this.dialogRef.close();
   }
   ngOnInit() {
+    this.sign = this.data.payment ? '-' : '+';
+    this.title = this.data.title ? this.data.title : '';
   }
 }

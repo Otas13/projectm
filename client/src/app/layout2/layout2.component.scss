@@ -1,0 +1,54 @@
+$primary-color: #c8c9ce;
+
+#screen-wrapper {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  #menu-wrapper {
+    margin: 0;
+    padding: 0;
+    background: $primary-color;
+    width: 250px;
+    .menu-icon {
+      text-align: center;
+      font-size: 40px;
+      border-bottom: 1px solid #fff;
+      color: #ffffff;
+      padding: 1rem;
+    }
+  }
+  #content-wrapper {
+    padding: 0;
+    #table-wrapper {
+      width: 700px;
+      border-left: 1px solid #e0e0e0;
+      border-right: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    table {
+      width: 100%;
+    }
+    .action-panel-row {
+      margin: 1rem .5rem;
+    }
+    .col-md-9 {
+      padding: 0!important;
+    }
+    #filter {
+      font-size: 1rem;
+      margin-left: 100px;
+    }
+    .date-col {
+      width: 80px;
+    }
+    .select-col {
+      width: 80px;
+    }
+    .amount-col {
+      width: 100px;
+    }
+    .mat-toolbar {
+      background: $primary-color;
+    }
+  }
+}

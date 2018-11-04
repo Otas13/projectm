@@ -1,10 +1,18 @@
 <div>
   <mat-form-field>
-    <input matInput [(ngModel)]="subject" placeholder="Předmět transakce">
+    <input matInput [(ngModel)]="pickedDate" [matDatepicker]="datePicker" placeholder="Datum provedení">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
   </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="amount" placeholder="Částka" type="number">
+    <input matInput [(ngModel)]="subject" placeholder="Předmět transakce">
   </mat-form-field>
+  <div>
+    <span>{{sign}}</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="amount" placeholder="Částka" type="number">
+    </mat-form-field>
+  </div>
   <button (click)="onClickSave()" mat-button>ULOŽIT</button>
   <button (click)="onClickStorno()" mat-button>STORNO</button>
 </div>

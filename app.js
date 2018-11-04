@@ -1,8 +1,10 @@
+require('dotenv').config({path: `${__dirname}/.env`});
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 
@@ -21,5 +23,10 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'client/dist/projekt')));
 
 app.use('/', indexRouter);
+
+mongoose.connect(process.env.MONGODB, { useNewUrlParser: true }, (err) => {
+    if(err) return console.log(err);
+    return console.log('Mongo connected');
+});
 
 module.exports = app;

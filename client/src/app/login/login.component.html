@@ -1,0 +1,15 @@
+<div class="container" id="container">
+  <div class="d-flex justify-content-center align-content-center h-100">
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <h1>Vliv GUI na použitelnost aplikace</h1>
+      <div class="d-flex flex-column self" id="login-wrap">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Celé jméno" [(ngModel)]="username">
+      </mat-form-field>
+      <div class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="login()">Zahájit testování</button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

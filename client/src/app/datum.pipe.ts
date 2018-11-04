@@ -14,7 +14,7 @@ export class DatumPipe implements PipeTransform {
    * @returns {any}
    */
   transform(value: any, args?: any): any {
-    return moment(value).format('DD.MM HH:mm');
+    return moment(value).format('D.MM');
   }
 
 }
