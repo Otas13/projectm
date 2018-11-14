@@ -1,0 +1,17 @@
+$ok: #28a745;
+$storno: #f44336;
+
+.mat-ok {
+  color: $ok;
+  &:hover {
+    color: #fff;
+    background: $ok;
+  }
+}
+.mat-storno {
+  color: $storno;
+  &:hover {
+    color: #fff;
+    background: $storno;
+  }
+}

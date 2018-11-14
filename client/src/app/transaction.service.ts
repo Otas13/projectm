@@ -30,7 +30,6 @@ export class TransactionService {
     }
     return count;
   }
-
   /**
    * pridani nove transakce
    * @param {Transaction} transaction
@@ -43,7 +42,6 @@ export class TransactionService {
     this._transactionListBS.next(this._transactionListSource);
   }
   delete(id: number) {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
     this._transactionListSource = this._transactionListSource.filter((transaction: Transaction, index: Number) => {
       return transaction.id !== id;
     });

@@ -10,15 +10,25 @@ $primary-color: #c8c9ce;
     background: $primary-color;
     width: 250px;
     .menu-icon {
+      box-sizing: border-box;
       text-align: center;
       font-size: 40px;
       border-bottom: 1px solid #fff;
       color: #ffffff;
       padding: 1rem;
     }
+    .menu-active {
+      background: darken($primary-color, 5%);
+    }
   }
   #content-wrapper {
     padding: 0;
+    .chart {
+      margin-top: 5rem;
+      display: block;
+      width: 700px;
+      height: 370px;
+    }
     #table-wrapper {
       width: 700px;
       border-left: 1px solid #e0e0e0;

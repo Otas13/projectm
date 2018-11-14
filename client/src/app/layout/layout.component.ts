@@ -7,6 +7,7 @@ import {SelectionModel} from "@angular/cdk/collections";
 import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionService} from "../transaction.service";
 import * as moment from "moment";
+import {Chart} from 'chart.js';
 
 @Component({
   selector: 'app-layout',
@@ -24,19 +25,28 @@ export class LayoutComponent implements OnInit {
   hideMap = true;
   isMapActive = true;
   heatmapData;
-  adminHeatmapData;
   layout;
   scenario;
   timer;
+  activeTab;
+  chart;
+  Tab = {
+    LAST_TRANSACTIONS: 'last',
+    ALL_TRANSACTIONS: 'all',
+    ADD_PAYMENT: 'addTransaction',
+    ADD_RESOURCES: 'addResource'
+  };
+
   /**
    * constructor komponenty
    * parametry jsou dodany angularem, netreba se starat o jejich predani
    * @param {TransactionService} transactionService
    * @param {MatDialog} dialog
    */
-  constructor(private transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService) {
+  constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService) {
     this.dataSource = new MatTableDataSource<Transaction>();
   }
+
   /**
    * otevreni dialogu pro zadani platby
    */
@@ -63,7 +73,7 @@ export class LayoutComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  remove(ev: MouseEvent){
+  remove(ev: MouseEvent) {
     this.saveButtonClick('remove');
     this.selection.selected.map((transaction: Transaction) => {
       this.transactionService.delete(transaction.id);
@@ -91,9 +101,38 @@ export class LayoutComponent implements OnInit {
    * kontext this je dostupny az zde, ne v constructoru
    */
   ngOnInit(): void {
-    if(!this.dataService.isLoggedIn) {
+    if (!this.dataService.isLoggedIn) {
       this._router.navigateByUrl('/login');
     }
+
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [
+          {
+            data: [],
+            borderColor: "#3cba9f",
+            fill: false
+          },
+        ],
+      },
+      options: {
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            display: true
+          }],
+        }
+      }
+    });
+
+    this.activeTab = this.Tab.ALL_TRANSACTIONS;
 
     this.scenario = this.route.snapshot.data['scenario'];
     this.layout = this.route.snapshot.data['layout'];
@@ -103,6 +142,13 @@ export class LayoutComponent implements OnInit {
     this.transactionService.transactionList.subscribe((updatedList: Transaction[]) => {
       this.transactionList = updatedList;
       this.dataSource.data = this.transactionList;
+      this.chart.data.datasets[0].data = updatedList.map(transaction => {
+        return transaction.amount
+      });
+      this.chart.data.labels = updatedList.map(transaction => {
+        return moment(transaction.date).format('DD.MM');
+      });
+      this.chart.update();
     });
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
@@ -118,36 +164,43 @@ export class LayoutComponent implements OnInit {
     this.transactionService.push(new Transaction(100, 'test', new Date()));
     this.transactionService.push(new Transaction(100, 'test', new Date()));
   }
+
   get startAmount(): number {
     return this._startAmount;
   }
+
   set startAmount(value: number) {
     this._startAmount = value;
   }
+
   get availableAmount(): number {
     return this.startAmount + this.transactionService.total;
   }
-  getButtonClicks(buttonId){
+
+  getButtonClicks(buttonId) {
     buttonId = this.getButtonId(buttonId);
-    if(this.dataService.isAdmin) {
+    if (this.dataService.isAdmin) {
       return buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) : 0;
-    }else {
+    } else {
       return "";
     }
   }
-  getButtonId(buttonId){
+
+  getButtonId(buttonId) {
     return `clicks_${buttonId}`;
   }
-  saveButtonClick(buttonId: any){
+
+  saveButtonClick(buttonId: any) {
     buttonId = this.getButtonId(buttonId);
-    let clickCount = buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) +1 : 1;
+    let clickCount = buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) + 1 : 1;
     this.setDataKey(buttonId, clickCount);
   }
+
   @HostListener('document:keyup', ['$event'])
   onMousemove(ev: KeyboardEvent) {
-    switch(ev.key){
+    switch (ev.key) {
       case 'm':
-        if(this.dataService.isAdmin) {
+        if (this.dataService.isAdmin) {
           this.heatmapData = this.getDataByKey(DataKey.HEATMAP);
         }
         this.hideMap = !this.hideMap;
@@ -157,7 +210,7 @@ export class LayoutComponent implements OnInit {
         this.dataService.flushData();
         break;
       case 't':
-        if(this.dataService.isAdmin) {
+        if (this.dataService.isAdmin) {
           alert(`Strávený čas: ${this.getDataByKey(DataKey.SPENT_MINUTES)} min`);
         }
         break;
@@ -165,19 +218,36 @@ export class LayoutComponent implements OnInit {
         break;
     }
   }
-  setDataKey(key, data){
+
+  setDataKey(key, data) {
     this.dataService.setKey(this.layout, this.scenario, key, data);
   }
-  getDataByKey(key){
+
+  getDataByKey(key) {
     return this.dataService.data[this.layout][this.scenario][key];
   }
-  nextPage(){
-    if(!this.dataService.isAdmin) {
+
+  nextPage() {
+    if (!this.dataService.isAdmin) {
 
     }
     const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
     this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
     this.setDataKey(DataKey.HEATMAP, this.heatmapData);
     this._router.navigateByUrl(this.route.snapshot.data['nextPage']);
+  }
+
+  showLastTransactions() {
+    this.saveButtonClick('showLastTransactions');
+    this.displayedColumns = ['date', 'subject', 'amount'];
+    this.activeTab = this.Tab.LAST_TRANSACTIONS;
+    this.dataSource.data = this.transactionList.slice(0, 5);
+  }
+
+  showCompleteHistory() {
+    this.saveButtonClick('showCompleteHistory');
+    this.displayedColumns = ['select', 'date', 'subject', 'amount'];
+    this.activeTab = this.Tab.ALL_TRANSACTIONS;
+    this.dataSource.data = this.transactionList;
   }
 }

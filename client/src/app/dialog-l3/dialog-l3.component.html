@@ -1,0 +1,23 @@
+<div>
+  <h3>{{title}}</h3>
+  <mat-form-field>
+    <input matInput [(ngModel)]="pickedDate" [matDatepicker]="datePicker" placeholder="Datum provedení">
+    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [(ngModel)]="subject" placeholder="Předmět transakce">
+  </mat-form-field>
+  <div>
+    <span>{{sign}}</span>
+    <mat-form-field>
+      <input matInput [(ngModel)]="amount" placeholder="Částka" type="number">
+    </mat-form-field>
+  </div>
+  <button (click)="onClickSave()" color="ok" mat-button>
+    <i class="fas fa-plus"></i>
+  </button>
+  <button (click)="onClickStorno()" color="storno" mat-button>
+    <i class="fas fa-times"></i>
+  </button>
+</div>

@@ -32,6 +32,7 @@ import { TesterListComponent } from './tester-list/tester-list.component';
 import { AngularHeatmapModule } from 'ng-heatmap';
 import { LayoutComponent } from './layout/layout.component';
 import { DialogL2Component } from './dialog-l2/dialog-l2.component';
+import { DialogL3Component } from './dialog-l3/dialog-l3.component';
 
 export const appRoutes: Routes =
   [
@@ -76,7 +77,8 @@ export const appRoutes: Routes =
     HeatmapComponent,
     TesterListComponent,
     LayoutComponent,
-    DialogL2Component
+    DialogL2Component,
+    DialogL3Component
   ],
   imports: [
     RouterModule.forRoot(
@@ -104,7 +106,7 @@ export const appRoutes: Routes =
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent],
-  entryComponents: [NewTransactionDialogComponent, DialogL2Component]
+  entryComponents: [NewTransactionDialogComponent, DialogL2Component, DialogL3Component]
 })
 export class AppModule {
 }

@@ -1,16 +1,20 @@
-<ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData"></ng-heatmap>
+<ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData" class="heatmap"></ng-heatmap>
 <div class="d-flex flex-row" id="screen-wrapper">
   <div class="h-100 d-flex flex-column" id="menu-wrapper">
-    <div class="menu-icon" [matTooltip]="getButtonClicks('showLastTransactions')" (click)="showLastTransactions($event)">
+    <div class="menu-icon" [matTooltip]="getButtonClicks('showLastTransactions')" (click)="showLastTransactions($event)"
+    [ngClass]="{'menu-active' : activeTab === Tab.LAST_TRANSACTIONS}">
       <i class="fas fa-bars"></i>
     </div>
-    <div [matTooltip]="getButtonClicks('openPaymentDialog')" (click)="openPaymentDialog()" class="menu-icon">
+    <div [matTooltip]="getButtonClicks('openPaymentDialog')" (click)="openPaymentDialog()" class="menu-icon"
+         [ngClass]="{'menu-active' : activeTab === Tab.ADD_PAYMENT}">
       <i class="fas fa-file-invoice-dollar"></i>
     </div>
-    <div [matTooltip]="getButtonClicks('openAddResourcesDialog')" (click)="openAddResourcesDialog()" class="menu-icon">
+    <div [matTooltip]="getButtonClicks('openAddResourcesDialog')" (click)="openAddResourcesDialog()" class="menu-icon"
+         [ngClass]="{'menu-active' : activeTab === Tab.ADD_RESOURCES}">
       <i class="fas fa-wallet"></i>
     </div>
-    <div class="menu-icon" [matTooltip]="getButtonClicks('showCompleteHistory')" (click)="showCompleteHistory()">
+    <div class="menu-icon" [matTooltip]="getButtonClicks('showCompleteHistory')" (click)="showCompleteHistory()"
+         [ngClass]="{'menu-active' : activeTab === Tab.ALL_TRANSACTIONS}">
       <i class="fas fa-chart-area"></i>
     </div>
   </div>
@@ -68,6 +72,9 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
         <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </div>
+      <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
+        <canvas id="canvas">{{ chart }}</canvas>
       </div>
     </div>
     <span class="nextPageLink" (click)="nextPage()">Pokračovat na další scénář</span>
