@@ -19,6 +19,9 @@ export class DataService {
   set username(value: string) {
     this._data.username = value;
   }
+  get username(): string {
+    return this._data.username;
+  }
   get isAdmin(): boolean {
     // u didn't see this
     return this.data.username === 'admin';

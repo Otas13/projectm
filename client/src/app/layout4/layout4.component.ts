@@ -21,6 +21,7 @@ export class Layout4Component extends LayoutComponent {
     this.QRReady.emit(false);
     this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
     this.generateQRCode();
+    console.log(this.dataService.username);
   }
 
   toggleSidebar(show: boolean) {
@@ -33,7 +34,7 @@ export class Layout4Component extends LayoutComponent {
 
   async generateQRCode(){
     try {
-      this.QRDataUrl = await QRCode.toDataURL(`https://${this.window.location.hostname}/login?username=${this.dataService.username}&layout=l4s1`);
+      this.QRDataUrl = await QRCode.toDataURL(`https://${this.window.location.hostname}?username=${this.dataService.username}&layout=l4s1`);
       this.QRReady.emit(true);
     } catch (err) {
       this.QRReady.emit(true);
