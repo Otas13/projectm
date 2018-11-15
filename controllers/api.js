@@ -1,42 +1,56 @@
 const TestResult = require('../models/testResult');
 
+function trimTestResult(data) {
+    let cleanData = {};
+    ['layoutOne', 'layoutTwo', 'layoutThree', 'layoutFour'].map(layout => {
+        ['scenarioOne', 'scenarioTwo', 'scenarioThree', 'scenarioFour'].map(scenario => {
+            if(Object.keys(data[layout][scenario]).length > 0){
+                if(!(layout in cleanData)){
+                    cleanData[layout] = {};
+                }
+                cleanData[layout][scenario] = data[layout][scenario];
+            }
+        })
+    });
+    return cleanData;
+}
+
 exports.persist = (req, res) => {
     if (req.headers.authorization && (req.headers.authorization.split(' ')[1] === process.env.WRITE_TOKEN)) {
+        const data = trimTestResult(req.body);
         const testResult = new TestResult({
             username: req.body.username,
-            layoutOne: {
-                scenarioOne: req.body.layoutOne.scenarioOne,
-                scenarioTwo: req.body.layoutOne.scenarioTwo,
-                scenarioThree: req.body.layoutOne.scenarioThree,
-                scenarioFour: req.body.layoutOne.scenarioFour
-            },
-            layoutTwo: {
-                scenarioOne: req.body.layoutTwo.scenarioOne,
-                scenarioTwo: req.body.layoutTwo.scenarioTwo,
-                scenarioThree: req.body.layoutTwo.scenarioThree,
-                scenarioFour: req.body.layoutTwo.scenarioFour
-            },
-            layoutThree: {
-                scenarioOne: req.body.layoutThree.scenarioOne,
-                scenarioTwo: req.body.layoutThree.scenarioTwo,
-                scenarioThree: req.body.layoutThree.scenarioThree,
-                scenarioFour: req.body.layoutThree.scenarioFour
-            },
-            layoutFour: {
-                scenarioOne: req.body.layoutFour.scenarioOne,
-                scenarioTwo: req.body.layoutFour.scenarioTwo,
-                scenarioThree: req.body.layoutFour.scenarioThree,
-                scenarioFour: req.body.layoutFour.scenarioFour
-            },
+            ...data
         });
 
-        testResult.save((err, result) => {
+
+        TestResult.findOne({username: req.body.username}, (err, result) => {
             if (err) {
                 console.error(err);
                 res.sendStatus(500);
-            } else {
-                console.log('Record saved.');
-                res.sendStatus(200);
+            }
+
+            if(result){
+                const updatedObject = Object.assign({}, result.toJSON(), data);
+                TestResult.findOneAndUpdate({_id: result._id}, updatedObject, {upsert: true, overwrite: true}, (err) => {
+                    if (err) {
+                        console.error(err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('Record updated.');
+                        res.sendStatus(200);
+                    }
+                });
+            }else {
+                testResult.save((err, result) => {
+                    if (err) {
+                        console.error(err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log('Record saved.');
+                        res.sendStatus(200);
+                    }
+                });
             }
         });
     } else {

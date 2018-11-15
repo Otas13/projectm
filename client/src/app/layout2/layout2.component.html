@@ -21,6 +21,7 @@
 
   <div class="w-100 d-flex justify-content-center" id="content-wrapper">
     <div>
+      <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Zůstatek je: {{availableAmount | currency}}</h3>
       <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Všechny transakce</h3>
       <h3 *ngIf="activeTab === Tab.LAST_TRANSACTIONS">Transakce z poslední doby</h3>
       <div id="table-wrapper">

@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
+import {Component, HostListener, Inject, OnInit, ViewChild} from '@angular/core';
 import {NewTransactionDialogComponent} from "../new-transaction-dialog/new-transaction-dialog.component";
 import {DataKey, DataService, Layout} from "../data.service";
 import {Transaction} from "../transaction";
@@ -43,7 +43,7 @@ export class LayoutComponent implements OnInit {
    * @param {TransactionService} transactionService
    * @param {MatDialog} dialog
    */
-  constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService) {
+  constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window) {
     this.dataSource = new MatTableDataSource<Transaction>();
   }
 
@@ -102,7 +102,7 @@ export class LayoutComponent implements OnInit {
    */
   ngOnInit(): void {
     if (!this.dataService.isLoggedIn) {
-      this._router.navigateByUrl('/login');
+      //this._router.navigateByUrl('/login');
     }
 
     this.chart = new Chart('canvas', {

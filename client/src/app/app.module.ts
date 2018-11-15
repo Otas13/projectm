@@ -18,7 +18,7 @@ import {Layout1Component} from './layout1/layout1.component';
 import {
   MatCheckboxModule,
   MatDatepickerModule, MatIconModule,
-  MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule,
+  MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSidenavModule,
   MatSortModule,
   MatTableModule, MatTooltipModule
 } from "@angular/material";
@@ -103,8 +103,9 @@ export const appRoutes: Routes =
     MatProgressSpinnerModule,
     AngularHeatmapModule,
     MatTooltipModule,
+    MatSidenavModule
   ],
-  providers: [MatDatepickerModule],
+  providers: [MatDatepickerModule, {provide: Window, useValue: window}],
   bootstrap: [AppComponent],
   entryComponents: [NewTransactionDialogComponent, DialogL2Component, DialogL3Component]
 })

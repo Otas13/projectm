@@ -1,1 +1,96 @@
-<span class="nextPageLink" (click)="nextPage()">Pokračovat na další layout</span>
+<div *ngIf="showQRCode" class="d-flex flex-column">
+    <h1>Mobilní zobrazení</h1>
+    <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
+    <h3 class="link" [routerLink]="scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</h3>
+    <mat-spinner *ngIf="!QRReady"></mat-spinner>
+  <div class="d-flex justify-content-center">
+    <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>
+  </div>
+</div>
+<div [hidden]="showQRCode" class="dark-theme">
+  <mat-sidenav-container id="main-side-nav">
+    <mat-sidenav [disableClose]="false" [opened]="showSidebar" (closedStart)="toggleSidebar(false)">
+      <div class="d-flex flex-column" id="sidenav-content-list">
+        <h3>ePeněženka</h3>
+        <div id="sidenav-remainer" class="d-flex justify-content-between"><span>Stav peněženky:</span><span>{{availableAmount | currency}}</span>
+        </div>
+        <span (click)="toggleSidebar(false)" [matTooltip]="getButtonClicks('openPaymentDialog')"
+              (click)="openPaymentDialog()">PŘIDAT VÝDEJ</span>
+        <span (click)="toggleSidebar(false)" [matTooltip]="getButtonClicks('openAddResourcesDialog')"
+              (click)="openAddResourcesDialog()">PŘIDAT ZDROJE</span>
+        <span (click)="toggleSidebar(false)" [matTooltip]="getButtonClicks('showLastTransactions')"
+              (click)="showLastTransactions()">DASHBOARD</span>
+        <span (click)="toggleSidebar(false)" [matTooltip]="getButtonClicks('showCompleteHistory')"
+              (click)="showCompleteHistory()">HISTORIE</span>
+        <span (click)="toggleSidebar(false)" (click)="nextPage()">DALŠÍ SCÉNÁŘ</span>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="gold">
+        <mat-toolbar-row>
+          <span><button (click)="toggleSidebar(true)" (click)="openSidenav()" [matTooltip]="getButtonClicks('openSidenav')" mat-icon-button><mat-icon>menu</mat-icon></button></span>
+          <h3>ePeněženka</h3>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div id="remainer" class="d-flex justify-content-between"><span>Stav peněženky:</span><span>{{availableAmount | currency}}</span>
+      </div>
+      <div id="table-wrapper">
+        <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Všechny transakce</h3>
+        <h3 *ngIf="activeTab === Tab.LAST_TRANSACTIONS">Transakce z poslední doby</h3>
+        <mat-toolbar id="table-toolbar" color="dark" *ngIf="activeTab === Tab.ALL_TRANSACTIONS">
+          <mat-toolbar-row>
+            <button [matTooltip]="getButtonClicks('remove')" mat-icon-button (click)="remove()">
+              <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+            <div id="filter">
+              <mat-form-field>
+                <input matInput placeholder="Filtrovat" (keyup)="applyFilter($event.target.value)">
+              </mat-form-field>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDisableClear
+               matSortDirection="desc">
+          <ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef class="select-col">
+              <mat-checkbox (click)="$event ? masterToggle() : null"
+                            [checked]="selection.hasValue() && isAllSelected()"
+                            [indeterminate]="selection.hasValue() && !isAllSelected()">
+              </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row" class="select-col">
+              <mat-checkbox (click)="$event.stopPropagation()"
+                            (change)="$event ? selection.toggle(row) : null"
+                            [checked]="selection.isSelected(row)">
+              </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="date-col"> Datum</th>
+            <td mat-cell *matCellDef="let transaction" class="date-col"> {{transaction.date | datum}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="subject">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Předmět</th>
+            <td mat-cell *matCellDef="let transaction"> {{transaction.subject}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header class="amount-col"> Částka</th>
+            <td mat-cell *matCellDef="let transaction" class="amount-col"> {{transaction.amount | currency}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator id="paginator" *ngIf="activeTab === Tab.ALL_TRANSACTIONS"
+                       [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </div>
+      <h3 *ngIf="activeTab === Tab.LAST_TRANSACTIONS">Graf transakcí</h3>
+      <div id="chart" [hidden]="activeTab !== Tab.LAST_TRANSACTIONS">
+        <canvas id="canvas">{{ chart }}</canvas>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
