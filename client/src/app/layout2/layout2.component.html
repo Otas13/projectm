@@ -1,6 +1,6 @@
 <ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData" class="heatmap"></ng-heatmap>
-<div class="d-flex flex-row" id="screen-wrapper">
-  <div class="h-100 d-flex flex-column" id="menu-wrapper">
+<div class="d-flex flex-row h-100" id="screen-wrapper">
+  <div class="h-100" id="menu-wrapper">
     <div class="menu-icon" [matTooltip]="getButtonClicks('showLastTransactions')" (click)="showLastTransactions($event)"
     [ngClass]="{'menu-active' : activeTab === Tab.LAST_TRANSACTIONS}">
       <i class="fas fa-bars"></i>
@@ -74,6 +74,7 @@
         </table>
         <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
       </div>
+      <h3 [hidden]="activeTab != Tab.ALL_TRANSACTIONS">Graf výdajů</h3>
       <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
         <canvas id="canvas">{{ chart }}</canvas>
       </div>

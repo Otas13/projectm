@@ -161,14 +161,15 @@ export class LayoutComponent implements OnInit {
 
     this.isMapActive = !this.dataService.isAdmin;
 
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-    this.transactionService.push(new Transaction(100, 'test', new Date()));
-  }
+    this.transactionService.reset();
+    this.transactionService.push(new Transaction(17000, 'Výplata', moment().subtract(1, 'month').toDate()));
+    this.transactionService.push(new Transaction(-9000, 'Nájemné', moment().subtract(23, 'day').toDate()));
+    this.transactionService.push(new Transaction(-3000, 'Úspory', moment().subtract(20, 'day').toDate()));
+    this.transactionService.push(new Transaction(-300, 'Kartička na MHD', moment().subtract(14, 'day').toDate()));
+    this.transactionService.push(new Transaction(-1000, 'Velký nákup', moment().subtract(10, 'day').toDate()));
 
+    alert(`Úkol scénáře: ${this.route.snapshot.data['ScenarioInstructions']}`)
+  }
   get startAmount(): number {
     return this._startAmount;
   }

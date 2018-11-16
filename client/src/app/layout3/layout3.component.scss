@@ -24,6 +24,9 @@ $fg-color: e3810d;
   }
 }
 .container {
+  h3 {
+    margin-top: 1rem;
+  }
   #main-toolbar {
     background: $primary-color;
     margin-bottom: 2rem;
@@ -44,7 +47,7 @@ $fg-color: e3810d;
   #content-wrapper {
     padding: 0;
     .chart {
-      margin-top: 5rem;
+      margin-top: 1rem;
       display: block;
       width: 700px;
       height: 370px;

@@ -27,7 +27,7 @@
         <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Všechny transakce</h3>
         <h3 *ngIf="activeTab === Tab.LAST_TRANSACTIONS">Transakce z poslední doby</h3>
         <div id="table-wrapper">
-          <mat-toolbar color="primary">
+          <mat-toolbar color="primary" *ngIf="activeTab === Tab.ALL_TRANSACTIONS">
             <mat-toolbar-row>
               <button [matTooltip]="getButtonClicks('remove')" mat-icon-button (click)="remove()">
                 <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
@@ -76,6 +76,7 @@
           </table>
           <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
+        <h3 [hidden]="activeTab != Tab.ALL_TRANSACTIONS">Graf výdajů</h3>
         <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
           <canvas id="canvas">{{ chart }}</canvas>
         </div>

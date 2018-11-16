@@ -1,8 +1,9 @@
 <div class="container" id="container">
   <div class="row">
     <div class="col-md-10 offset-md-1 col-sm-12">
-      <h1>Seznam testovacích scénářů</h1>
-      <div class="list-group">
+      <h1 [hidden]="!isMobileDevice">Děkujeme, nyní můžete pokračovat v desktopové aplikaci.</h1>
+      <h1 [hidden]="isMobileDevice">Seznam testovacích scénářů</h1>
+      <div class="list-group" [hidden]="isMobileDevice">
         <a routerLink="/l1s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">Layout 1</h5>

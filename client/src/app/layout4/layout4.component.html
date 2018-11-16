@@ -1,8 +1,8 @@
 <div *ngIf="showQRCode" class="d-flex flex-column">
-    <h1>Mobilní zobrazení</h1>
-    <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
-    <h3 class="link" [routerLink]="scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</h3>
-    <mat-spinner *ngIf="!QRReady"></mat-spinner>
+  <h1>Mobilní zobrazení</h1>
+  <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
+  <h3><a routerLink="/scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</a></h3>
+  <mat-spinner *ngIf="!QRReady"></mat-spinner>
   <div class="d-flex justify-content-center">
     <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>
   </div>
@@ -28,7 +28,8 @@
     <mat-sidenav-content>
       <mat-toolbar color="gold">
         <mat-toolbar-row>
-          <span><button (click)="toggleSidebar(true)" (click)="openSidenav()" [matTooltip]="getButtonClicks('openSidenav')" mat-icon-button><mat-icon>menu</mat-icon></button></span>
+          <span><button (click)="toggleSidebar(true)" (click)="openSidenav()"
+                        [matTooltip]="getButtonClicks('openSidenav')" mat-icon-button><mat-icon>menu</mat-icon></button></span>
           <h3>ePeněženka</h3>
         </mat-toolbar-row>
       </mat-toolbar>

@@ -1,13 +1,11 @@
 $primary-color: #c8c9ce;
-
 #screen-wrapper {
   margin: 0;
   padding: 0;
-  height: 100vh;
+  background: $primary-color;
   #menu-wrapper {
     margin: 0;
     padding: 0;
-    background: $primary-color;
     width: 250px;
     .menu-icon {
       box-sizing: border-box;
@@ -23,8 +21,12 @@ $primary-color: #c8c9ce;
   }
   #content-wrapper {
     padding: 0;
+    background: #fff;
+    h3 {
+      margin-top: 1rem;
+    }
     .chart {
-      margin-top: 5rem;
+      margin-top: 1rem;
       display: block;
       width: 700px;
       height: 370px;

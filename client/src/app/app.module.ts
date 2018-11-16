@@ -23,11 +23,10 @@ import {
   MatTableModule, MatTooltipModule
 } from "@angular/material";
 import {Layout, Scenario} from "./data.service";
-import {Route} from "./routes.enum";
+import {Route, ScenarioInstruction} from "./routes.enum";
 import {Layout2Component} from './layout2/layout2.component';
 import {Layout3Component} from './layout3/layout3.component';
 import {Layout4Component} from './layout4/layout4.component';
-import { HeatmapComponent } from './heatmap/heatmap.component';
 import { TesterListComponent } from './tester-list/tester-list.component';
 import { AngularHeatmapModule } from 'ng-heatmap';
 import { LayoutComponent } from './layout/layout.component';
@@ -44,30 +43,30 @@ export const appRoutes: Routes =
     {path: Route.LOGIN, component: LoginComponent},
     {path: Route.TESTER_LIST, component: TesterListComponent},
 
-    {path: Route.L1S1, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.ONE, nextPage: Route.L1S2}},
-    {path: Route.L1S2, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.TWO, nextPage: Route.L1S3}},
-    {path: Route.L1S3, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.THREE, nextPage: Route.L1S4}},
-    {path: Route.L1S4, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+    {path: Route.L1S1, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.ONE, nextPage: Route.L1S2, ScenarioInstructions: ScenarioInstruction.ONE}},
+    {path: Route.L1S2, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.THREE, nextPage: Route.L1S3, ScenarioInstructions: ScenarioInstruction.THREE}},
+    {path: Route.L1S3, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.TWO, nextPage: Route.L1S4, ScenarioInstructions: ScenarioInstruction.TWO}},
+    {path: Route.L1S4, component: Layout1Component, data: {layout: Layout.ONE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST, ScenarioInstructions: ScenarioInstruction.FOUR}},
 
-    {path: Route.L2S1, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.ONE, nextPage: Route.L2S2}},
-    {path: Route.L2S2, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.TWO, nextPage: Route.L2S3}},
-    {path: Route.L2S3, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.THREE, nextPage: Route.L2S4}},
-    {path: Route.L2S4, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+    {path: Route.L2S1, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.TWO, nextPage: Route.L2S2, ScenarioInstructions: ScenarioInstruction.TWO}},
+    {path: Route.L2S2, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.FOUR, nextPage: Route.L2S3, ScenarioInstructions: ScenarioInstruction.FOUR}},
+    {path: Route.L2S3, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.THREE, nextPage: Route.L2S4, ScenarioInstructions: ScenarioInstruction.THREE}},
+    {path: Route.L2S4, component: Layout2Component, data: {layout: Layout.TWO, scenario: Scenario.ONE, nextPage: Route.SCENARIO_LIST, ScenarioInstructions: ScenarioInstruction.ONE}},
 
-    {path: Route.L3S1, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.ONE, nextPage: Route.L3S2}},
-    {path: Route.L3S2, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.TWO, nextPage: Route.L3S3}},
-    {path: Route.L3S3, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.THREE, nextPage: Route.L3S4}},
-    {path: Route.L3S4, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+    {path: Route.L3S1, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.THREE, nextPage: Route.L3S2, ScenarioInstructions: ScenarioInstruction.THREE}},
+    {path: Route.L3S2, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.TWO, nextPage: Route.L3S3, ScenarioInstructions: ScenarioInstruction.TWO}},
+    {path: Route.L3S3, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.ONE, nextPage: Route.L3S4, ScenarioInstructions: ScenarioInstruction.ONE}},
+    {path: Route.L3S4, component: Layout3Component, data: {layout: Layout.THREE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST, ScenarioInstructions: ScenarioInstruction.FOUR}},
 
-    {path: Route.L4S1, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.ONE, nextPage: Route.L4S2}},
-    {path: Route.L4S2, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.TWO, nextPage: Route.L4S3}},
-    {path: Route.L4S3, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.THREE, nextPage: Route.L4S4}},
-    {path: Route.L4S4, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+    {path: Route.L4S1, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.ONE, nextPage: Route.L4S2, ScenarioInstructions: ScenarioInstruction.ONE}},
+    {path: Route.L4S2, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.TWO, nextPage: Route.L4S3, ScenarioInstructions: ScenarioInstruction.TWO}},
+    {path: Route.L4S3, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.THREE, nextPage: Route.L4S4, ScenarioInstructions: ScenarioInstruction.THREE}},
+    {path: Route.L4S4, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST, ScenarioInstructions: ScenarioInstruction.FOUR}},
 
-    {path: Route.L5S1, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.ONE, nextPage: Route.L5S2}},
-    {path: Route.L5S2, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.TWO, nextPage: Route.L5S3}},
-    {path: Route.L5S3, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.THREE, nextPage: Route.L5S4}},
-    {path: Route.L5S4, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+    {path: Route.L5S1, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.FOUR, nextPage: Route.L5S2, ScenarioInstructions: ScenarioInstruction.FOUR}},
+    {path: Route.L5S2, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.ONE, nextPage: Route.L5S3, ScenarioInstructions: ScenarioInstruction.ONE}},
+    {path: Route.L5S3, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.THREE, nextPage: Route.L5S4, ScenarioInstructions: ScenarioInstruction.THREE}},
+    {path: Route.L5S4, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.TWO, nextPage: Route.SCENARIO_LIST, ScenarioInstructions: ScenarioInstruction.TWO}},
   ];
 
 @NgModule({
@@ -82,7 +81,6 @@ export const appRoutes: Routes =
     Layout2Component,
     Layout3Component,
     Layout4Component,
-    HeatmapComponent,
     TesterListComponent,
     LayoutComponent,
     DialogL2Component,

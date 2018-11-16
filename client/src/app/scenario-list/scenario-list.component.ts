@@ -1,4 +1,4 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {DataKey, DataService} from "../data.service";
 import {Router} from "@angular/router";
 import {Route} from "../routes.enum";
@@ -9,13 +9,14 @@ import {Route} from "../routes.enum";
   styleUrls: ['./scenario-list.component.scss']
 })
 export class ScenarioListComponent implements OnInit {
-
-  constructor(private _router: Router, private dataService: DataService) { }
+  isMobileDevice;
+  constructor(private _router: Router, private dataService: DataService, @Inject(Window) protected window: Window) { }
 
   ngOnInit() {
     if(!this.dataService.isLoggedIn) {
       this._router.navigateByUrl(Route.LOGIN);
     }
+    this.isMobileDevice = (window.innerWidth < 720);
   }
 
   @HostListener('document:keyup', ['$event'])

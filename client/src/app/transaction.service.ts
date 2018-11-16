@@ -57,4 +57,8 @@ export class TransactionService {
       }
     }
   }
+  reset(){
+    this._transactionListSource = [];
+    this._transactionListBS.next(this._transactionListSource);
+  }
 }
