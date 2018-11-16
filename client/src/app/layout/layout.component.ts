@@ -105,7 +105,7 @@ export class LayoutComponent implements OnInit {
    */
   ngOnInit(): void {
     if (!this.dataService.isLoggedIn) {
-      //this._router.navigateByUrl('/login');
+      this._router.navigateByUrl('/login');
     }
 
     this.chart = new Chart('canvas', {

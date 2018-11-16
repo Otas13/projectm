@@ -3,7 +3,7 @@ const router = express.Router();
 const apiController = require('../controllers/api');
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/*', function (req, res, next) {
     res.render('index');
 });
 
