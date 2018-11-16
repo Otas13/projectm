@@ -38,10 +38,13 @@ export class LayoutComponent implements OnInit {
   };
 
   /**
-   * constructor komponenty
-   * parametry jsou dodany angularem, netreba se starat o jejich predani
+   *
    * @param {TransactionService} transactionService
    * @param {MatDialog} dialog
+   * @param {ActivatedRoute} route
+   * @param {Router} _router
+   * @param {DataService} dataService
+   * @param {Window} window
    */
   constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window) {
     this.dataSource = new MatTableDataSource<Transaction>();
@@ -102,7 +105,7 @@ export class LayoutComponent implements OnInit {
    */
   ngOnInit(): void {
     if (!this.dataService.isLoggedIn) {
-      this._router.navigateByUrl('/login');
+      //this._router.navigateByUrl('/login');
     }
 
     this.chart = new Chart('canvas', {
@@ -142,12 +145,13 @@ export class LayoutComponent implements OnInit {
     this.transactionService.transactionList.subscribe((updatedList: Transaction[]) => {
       this.transactionList = updatedList;
       this.dataSource.data = this.transactionList;
-      this.chart.data.datasets[0].data = updatedList.map(transaction => {
-        return transaction.amount
-      });
-      this.chart.data.labels = updatedList.map(transaction => {
+      const chartData = updatedList.filter(transaction => (transaction.amount < 0));
+      this.chart.data.datasets[0].data = chartData.map(transaction => {
+        return -1 * transaction.amount;
+      }).reverse();
+      this.chart.data.labels = chartData.map(transaction => {
         return moment(transaction.date).format('DD.MM');
-      });
+      }).reverse();
       this.chart.update();
     });
     // If the user changes the sort order, reset back to the first page.
@@ -191,9 +195,11 @@ export class LayoutComponent implements OnInit {
   }
 
   saveButtonClick(buttonId: any) {
-    buttonId = this.getButtonId(buttonId);
-    let clickCount = buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) + 1 : 1;
-    this.setDataKey(buttonId, clickCount);
+    if(!this.dataService.isAdmin) {
+      buttonId = this.getButtonId(buttonId);
+      let clickCount = buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) + 1 : 1;
+      this.setDataKey(buttonId, clickCount);
+    }
   }
 
   @HostListener('document:keyup', ['$event'])

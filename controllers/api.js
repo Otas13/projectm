@@ -2,7 +2,7 @@ const TestResult = require('../models/testResult');
 
 function trimTestResult(data) {
     let cleanData = {};
-    ['layoutOne', 'layoutTwo', 'layoutThree', 'layoutFour'].map(layout => {
+    ['layoutOne', 'layoutTwo', 'layoutThree', 'layoutFour', 'layoutFive'].map(layout => {
         ['scenarioOne', 'scenarioTwo', 'scenarioThree', 'scenarioFour'].map(scenario => {
             if(Object.keys(data[layout][scenario]).length > 0){
                 if(!(layout in cleanData)){

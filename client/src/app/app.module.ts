@@ -33,6 +33,9 @@ import { AngularHeatmapModule } from 'ng-heatmap';
 import { LayoutComponent } from './layout/layout.component';
 import { DialogL2Component } from './dialog-l2/dialog-l2.component';
 import { DialogL3Component } from './dialog-l3/dialog-l3.component';
+import { Layout5Component } from './layout5/layout5.component';
+import { DialogL5Component } from './dialog-l5/dialog-l5.component';
+import {OverlayContainer} from "@angular/cdk/overlay";
 
 export const appRoutes: Routes =
   [
@@ -60,6 +63,11 @@ export const appRoutes: Routes =
     {path: Route.L4S2, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.TWO, nextPage: Route.L4S3}},
     {path: Route.L4S3, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.THREE, nextPage: Route.L4S4}},
     {path: Route.L4S4, component: Layout4Component, data: {layout: Layout.FOUR, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
+
+    {path: Route.L5S1, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.ONE, nextPage: Route.L5S2}},
+    {path: Route.L5S2, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.TWO, nextPage: Route.L5S3}},
+    {path: Route.L5S3, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.THREE, nextPage: Route.L5S4}},
+    {path: Route.L5S4, component: Layout5Component, data: {layout: Layout.FIVE, scenario: Scenario.FOUR, nextPage: Route.SCENARIO_LIST}},
   ];
 
 @NgModule({
@@ -78,7 +86,9 @@ export const appRoutes: Routes =
     TesterListComponent,
     LayoutComponent,
     DialogL2Component,
-    DialogL3Component
+    DialogL3Component,
+    Layout5Component,
+    DialogL5Component
   ],
   imports: [
     RouterModule.forRoot(
@@ -107,7 +117,10 @@ export const appRoutes: Routes =
   ],
   providers: [MatDatepickerModule, {provide: Window, useValue: window}],
   bootstrap: [AppComponent],
-  entryComponents: [NewTransactionDialogComponent, DialogL2Component, DialogL3Component]
+  entryComponents: [NewTransactionDialogComponent, DialogL2Component, DialogL3Component, DialogL5Component]
 })
 export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('dark-theme');
+  }
 }

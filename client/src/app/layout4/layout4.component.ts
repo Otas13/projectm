@@ -4,6 +4,7 @@ import QRCode from 'qrcode';
 import {DataKey, DataService} from "../data.service";
 import {LayoutComponent} from "../layout/layout.component";
 import * as moment from  "moment";
+import {Route} from "../routes.enum";
 
 @Component({
   selector: 'app-layout4',
@@ -20,8 +21,7 @@ export class Layout4Component extends LayoutComponent {
     super.ngOnInit();
     this.QRReady.emit(false);
     this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
-    this.generateQRCode();
-    console.log(this.dataService.username);
+    this.generateQRCode(Route.L4S1);
   }
 
   toggleSidebar(show: boolean) {
@@ -32,9 +32,9 @@ export class Layout4Component extends LayoutComponent {
     this.saveButtonClick('openSidenav');
   }
 
-  async generateQRCode(){
+  async generateQRCode(route){
     try {
-      this.QRDataUrl = await QRCode.toDataURL(`https://${this.window.location.hostname}?username=${this.dataService.username}&layout=l4s1`);
+      this.QRDataUrl = await QRCode.toDataURL(`https://${this.window.location.hostname}?username=${this.dataService.username}&layout=${route}`);
       this.QRReady.emit(true);
     } catch (err) {
       this.QRReady.emit(true);

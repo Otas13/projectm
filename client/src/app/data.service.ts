@@ -3,7 +3,7 @@ export enum Scenario {
   ONE = 'scenarioOne', TWO = 'scenarioTwo', THREE = 'scenarioThree', FOUR = 'scenarioFour'
 }
 export enum Layout {
-  ONE = 'layoutOne', TWO = 'layoutTwo', THREE = 'layoutThree', FOUR = 'layoutFour'
+  ONE = 'layoutOne', TWO = 'layoutTwo', THREE = 'layoutThree', FOUR = 'layoutFour', FIVE = 'layoutFive'
 }
 export enum DataKey {
   HEATMAP = 'heatmap',
@@ -36,6 +36,7 @@ export class DataService {
     layoutTwo: {scenarioOne: {}, scenarioTwo: {}, scenarioThree: {}, scenarioFour: {}},
     layoutThree: {scenarioOne: {}, scenarioTwo: {}, scenarioThree: {}, scenarioFour: {}},
     layoutFour: {scenarioOne: {}, scenarioTwo: {}, scenarioThree: {}, scenarioFour: {}},
+    layoutFive: {scenarioOne: {}, scenarioTwo: {}, scenarioThree: {}, scenarioFour: {}},
   };
   constructor() {}
   setKey(layout: Layout, scenario: Scenario, key: DataKey, value){

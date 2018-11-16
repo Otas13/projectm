@@ -18,4 +18,8 @@ export enum Route {
   L4S2 = 'l4s2',
   L4S3 = 'l4s3',
   L4S4 = 'l4s4',
+  L5S1 = 'l5s1',
+  L5S2 = 'l5s2',
+  L5S3 = 'l5s3',
+  L5S4 = 'l5s4',
 }
