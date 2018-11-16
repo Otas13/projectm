@@ -22,7 +22,7 @@ export class Layout5Component extends Layout4Component {
   async ngOnInit() {
     super.ngOnInit();
     this.QRReady.emit(false);
-    this.showQRCode = false;//(window.innerWidth > 720) && !this.dataService.isAdmin;
+    this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
     this.generateQRCode(Route.L5S1);
   }
   /**
@@ -39,7 +39,6 @@ export class Layout5Component extends Layout4Component {
     dialogRef.afterClosed().subscribe(result => {
       this.activeTab = currentTab;
     });
-    console.log(this.dataService.data);
   }
 
   /**
