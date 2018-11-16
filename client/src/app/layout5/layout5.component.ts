@@ -22,7 +22,7 @@ export class Layout5Component extends Layout4Component {
   async ngOnInit() {
     super.ngOnInit();
     this.QRReady.emit(false);
-    this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
+    this.showQRCode = false;//(window.innerWidth > 720) && !this.dataService.isAdmin;
     this.generateQRCode(Route.L5S1);
   }
   /**
@@ -34,12 +34,12 @@ export class Layout5Component extends Layout4Component {
     this.activeTab = this.Tab.ADD_PAYMENT;
     const dialogRef = this.dialog.open(DialogL5Component, {
       width: '250px',
-      panelClass: 'dark-container',
       data: {payment: true, title: 'Zadat platbu'}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.activeTab = currentTab;
     });
+    console.log(this.dataService.data);
   }
 
   /**
@@ -51,7 +51,6 @@ export class Layout5Component extends Layout4Component {
     this.activeTab = this.Tab.ADD_RESOURCES;
     const dialogRef = this.dialog.open(DialogL5Component, {
       width: '250px',
-      panelClass: 'dark-container',
       data: {payment: false, title: 'Navýšit zůstatek'}
     });
     dialogRef.afterClosed().subscribe(result => {
