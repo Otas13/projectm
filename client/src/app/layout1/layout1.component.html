@@ -1,39 +1,41 @@
 <ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData"></ng-heatmap>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-      <div class="action-panel-row">Zůstatek: {{availableAmount | currency}}</div>
-      <div class="action-panel-row">
-        <mat-form-field>
-          <input [(ngModel)]="startAmount" matInput placeholder="Počáteční stav" type="number" value="0">
-        </mat-form-field>
-      </div>
-      <div class="action-panel-row">
-        <button [matTooltip]="getButtonClicks('openPaymentDialog')" (click)="openPaymentDialog()" mat-raised-button>PŘIDAT PLATBU</button>
-      </div>
-      <div class="action-panel-row">
-        <button [matTooltip]="getButtonClicks('openAddResourcesDialog')" (click)="openAddResourcesDialog()" mat-raised-button>PŘIDAT PROSTŘEDKY</button>
+<div id="slider-container">
+  <div class="slider" id="baz" [ngClass]="{'closed' : !show}">
+    <div class="d-flex flex-row justify-content-center h-100 align-items-center">
+      <div id="menu-wrapper" class="d-flex flex-row">
+        <div class="menu-item"><i class="fas fa-bars"></i></div>
+        <div class="menu-item"><i class="fas fa-file-invoice-dollar"></i></div>
+        <div class="menu-item"><i class="fas fa-wallet"></i></div>
+        <div class="menu-item"><i class="fas fa-chart-area"></i></div>
       </div>
     </div>
-    <div class="col-md-9">
-      <mat-toolbar color="primary">
-        <mat-toolbar-row>
-          <button [matTooltip]="getButtonClicks('remove')" mat-icon-button (click)="remove()">
-            <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
-          </button>
-          <div id="filter">
-            <mat-form-field>
-              <input matInput placeholder="Filtrovat" (keyup)="applyFilter($event.target.value)">
-            </mat-form-field>
-          </div>
-        </mat-toolbar-row>
-      </mat-toolbar>
-      <div class="">
+  </div>
+</div>
+<ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData" class="heatmap"></ng-heatmap>
+<div class="d-flex flex-row h-100" id="screen-wrapper">
+  <div class="w-100 d-flex justify-content-center" id="content-wrapper">
+    <div>
+      <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Zůstatek je: {{availableAmount | currency}}</h3>
+      <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Všechny transakce</h3>
+      <h3 *ngIf="activeTab === Tab.LAST_TRANSACTIONS">Transakce z poslední doby</h3>
+      <div id="table-wrapper">
+        <mat-toolbar color="primary" *ngIf="activeTab === Tab.ALL_TRANSACTIONS">
+          <mat-toolbar-row>
+            <button [matTooltip]="getButtonClicks('remove')" mat-icon-button (click)="remove()">
+              <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            </button>
+            <div id="filter">
+              <mat-form-field>
+                <input matInput placeholder="Filtrovat" (keyup)="applyFilter($event.target.value)">
+              </mat-form-field>
+            </div>
+          </mat-toolbar-row>
+        </mat-toolbar>
         <table mat-table [dataSource]="dataSource" matSort matSortActive="date" matSortDisableClear
                matSortDirection="desc">
           <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef class="select-col">
-              <mat-checkbox (change)="$event ? masterToggle() : null"
+              <mat-checkbox (click)="$event ? masterToggle() : null"
                             [checked]="selection.hasValue() && isAllSelected()"
                             [indeterminate]="selection.hasValue() && !isAllSelected()">
               </mat-checkbox>
@@ -64,9 +66,13 @@
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+        <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </div>
+      <h3 [hidden]="activeTab != Tab.ALL_TRANSACTIONS">Graf výdajů</h3>
+      <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
+        <canvas id="canvas">{{ chart }}</canvas>
       </div>
     </div>
+    <span class="nextPageLink" (click)="nextPage()">Pokračovat na další scénář</span>
   </div>
-  <span class="nextPageLink" (click)="nextPage()">Pokračovat na další scénářm</span>
 </div>
