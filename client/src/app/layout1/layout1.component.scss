@@ -93,4 +93,13 @@ $primary-color: #c8c9ce;
   padding: 2rem 3rem;
   margin: 5px;
   background: rgba(0,0,0,.7);
+  &:hover {
+	background: rgba(0,0,0,.5);
+	transition: background .2s ease-out;
+	border-radius: 3px;
+  }
+  img {
+	height: 42px;
+	width: 42px;
+  }
 }
