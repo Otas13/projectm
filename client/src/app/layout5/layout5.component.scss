@@ -1,4 +1,12 @@
-$bg-color: #373634;
+@import url('https://fonts.googleapis.com/css?family=Lobster&subset=latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC&subset=latin-ext');
+$bg-color: #3D82AB;
+$bg-but: #EE5921;
+#wrapper {
+	font-family: 'Alegreya Sans SC', sans-serif;
+	max-width: 100vw;
+	overflow-x: hidden;
+}
 #menu-wrapper {
   h3 {
     color: #79723c;
@@ -18,7 +26,7 @@ $bg-color: #373634;
       width: 100%;
       height: 100%;
       padding: .5rem;
-      background: #5c85bd;
+      background: $bg-but;
       text-align: center;
       border: 1px solid #000;
     }
@@ -43,6 +51,10 @@ $bg-color: #373634;
   .mat-paginator {
     background: $bg-color;
   }
+  .mat-cell, .mat-header-cell, .mat-form-field {
+	font-family: 'Alegreya Sans SC', sans-serif;
+	font-size: 16px;
+  }
 }
 .dark-theme {
   background: $bg-color;
@@ -54,6 +66,9 @@ $bg-color: #373634;
 }
 #chart {
   margin-top: 1rem;
+  #canvas {
+	background: $bg-color;
+  }
 }
 h4 {
   margin: 1rem;
@@ -68,4 +83,9 @@ h3, h1 {
   &:hover {
     text-decoration: underline;
   }
+}
+.mat-toolbar {
+	h3 {
+		font-family: 'Lobster', cursive;
+	}
 }

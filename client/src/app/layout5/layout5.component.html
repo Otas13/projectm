@@ -7,7 +7,7 @@
     <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>
   </div>
 </div>
-<div class="dark-theme" [hidden]="showQRCode">
+<div class="dark-theme" id="wrapper" [hidden]="showQRCode">
   <div class="d-flex flex-column h-100 w-100" id="menu-wrapper" *ngIf="activeTab === Tab.MENU">
     <h3>ePeněženka</h3>
     <div class="d-flex justify-content-between" id="remainer">

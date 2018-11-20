@@ -9,6 +9,7 @@ import {NewTransactionDialogComponent} from "../new-transaction-dialog/new-trans
 })
 export class Layout1Component extends LayoutComponent {
   showMenu = true;
+  showMenuIcons = true;
   
   showLastTransactions() {
 	  super.showLastTransactions();
@@ -19,13 +20,13 @@ export class Layout1Component extends LayoutComponent {
    */
   openPaymentDialog(ev: MouseEvent): void {
     this.saveButtonClick('openPaymentDialog');
-    this.showMenu = !this.showMenu;
+    this.showMenuIcons = !this.showMenuIcons;
 	const dialogRef = this.dialog.open(NewTransactionDialogComponent, {
       width: '250px',
       data: {payment: true, title: 'Zadat platbu'}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.showMenu = !this.showMenu;
+      this.showMenuIcons = !this.showMenuIcons;
     });
   }
 
@@ -33,14 +34,14 @@ export class Layout1Component extends LayoutComponent {
    * otevreni dialogu pro zvyseni prostredku
    */
   openAddResourcesDialog(ev: MouseEvent): void {
-	this.showMenu = !this.showMenu;
+	this.showMenuIcons = !this.showMenuIcons;
     this.saveButtonClick('openAddResourcesDialog');
     const dialogRef = this.dialog.open(NewTransactionDialogComponent, {
       width: '250px',
       data: {payment: false, title: 'Navýšit zůstatek'}
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.showMenu = !this.showMenu;
+      this.showMenuIcons = !this.showMenuIcons;
     });
   }
 	

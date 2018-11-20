@@ -3,8 +3,7 @@
   <div id="info-button" [matTooltip]="getButtonClicks('showLastTransactions')" (click)="showLastTransactions($event)">
     <span>INFO</span>
   </div>
-  <div class="container">
-    <mat-toolbar color="primary" id="main-toolbar">
+  <mat-toolbar color="primary" id="main-toolbar">
       <mat-toolbar-row class="d-flex justify-content-between">
         <div class="h-100 d-flex flex-row">
           <div class="toolbar-button d-flex align-items-center" [matTooltip]="getButtonClicks('openPaymentDialog')" (click)="openPaymentDialog()">
@@ -22,6 +21,7 @@
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
+  <div class="container">
     <div class="w-100 d-flex justify-content-center" id="content-wrapper">
       <div>
         <h3 *ngIf="activeTab === Tab.ALL_TRANSACTIONS">Všechny transakce</h3>

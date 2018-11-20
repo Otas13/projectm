@@ -9,7 +9,7 @@ import {Route} from "../routes.enum";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  username = 'admin';
+  username = '';
   constructor(protected route: ActivatedRoute, private _dataService: DataService, private _router: Router) { }
 
   ngOnInit() {

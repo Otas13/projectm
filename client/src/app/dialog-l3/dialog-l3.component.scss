@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Teko&subset=latin-ext');
 $ok: #28a745;
 $storno: #f44336;
 
@@ -14,4 +15,7 @@ $storno: #f44336;
     color: #fff;
     background: $storno;
   }
+}
+.mat-form-field, h3 {
+	font-family: 'Dosis', sans-serif;
 }
