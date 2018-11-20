@@ -24,6 +24,11 @@ app.use(express.static(path.join(__dirname, 'client/dist/projekt')));
 
 app.use('/', indexRouter);
 
+// neplatna cesta bude presmerovana na root
+app.use((req, res) => {
+  res.redirect("/");
+});
+
 mongoose.connect(process.env.MONGODB, { useNewUrlParser: true }, (err) => {
     if(err) return console.log(err);
     return console.log('Mongo connected');
