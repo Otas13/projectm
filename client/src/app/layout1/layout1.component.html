@@ -79,7 +79,11 @@
         </table>
         <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
       </div>
-      <h3 [hidden]="activeTab != Tab.ALL_TRANSACTIONS" id="chart-title">Graf výdajů</h3>
+	  <mat-toolbar color="dark" [hidden]="activeTab != Tab.ALL_TRANSACTIONS" id="chart-title">
+        <mat-toolbar-row>
+			<h3>Graf výdajů</h3>
+		</mat-toolbar-row>
+	  </mat-toolbar>
       <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
         <canvas id="canvas">{{ chart }}</canvas>
       </div>

@@ -45,11 +45,15 @@ $primary-color: #c8c9ce;
 		background: #98FFBA;
 		h3 {
 			width: 100%;
-			texxt-align: center;
+			text-align: center;
 		}
 	}
 	#chart-title {
-		margin: 2rem 0;
+		margin: 3rem 0;
+		h3 {
+			width: 100%;
+			text-align: center;
+		}
 	}
     .action-panel-row {
       margin: 1rem .5rem;
