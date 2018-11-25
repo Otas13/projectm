@@ -4,7 +4,7 @@
     <span>INFO</span>
   </div>
   <mat-toolbar color="primary" id="main-toolbar">
-      <mat-toolbar-row class="d-flex justify-content-between">
+      <mat-toolbar-row class="d-flex justify-content-center">
         <div class="h-100 d-flex flex-row">
           <div class="toolbar-button d-flex align-items-center" [matTooltip]="getButtonClicks('openPaymentDialog')" (click)="openPaymentDialog()">
             <div>PŘIDAT VÝDEJ</div>
@@ -15,9 +15,9 @@
           <div class="toolbar-button d-flex align-items-center" [matTooltip]="getButtonClicks('showCompleteHistory')" (click)="showCompleteHistory()">
             <div>SEZNAM VÝDAJŮ</div>
           </div>
-        </div>
-        <div class="toolbar-button d-flex align-items-center">
+		  <div class="toolbar-button d-flex align-items-center">
           <div>STAV KONTA: {{availableAmount | currency}}</div>
+        </div>
         </div>
       </mat-toolbar-row>
     </mat-toolbar>
@@ -76,7 +76,7 @@
           </table>
           <mat-paginator *ngIf="activeTab === Tab.ALL_TRANSACTIONS" [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
         </div>
-        <h3 [hidden]="activeTab != Tab.ALL_TRANSACTIONS">Graf výdajů</h3>
+        <h3 id="chart-title" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">Graf výdajů</h3>
         <div class="chart" [hidden]="activeTab != Tab.ALL_TRANSACTIONS">
           <canvas id="canvas">{{ chart }}</canvas>
         </div>

@@ -2,7 +2,7 @@ $primary-color: #c8c9ce;
 #screen-wrapper {
   margin: 0;
   padding: 0;
-  background: $primary-color;
+  min-height: 100vh;
   #menu-wrapper {
     margin: 0;
     padding: 0;
@@ -21,7 +21,7 @@ $primary-color: #c8c9ce;
   }
   #content-wrapper {
     padding: 0;
-    background: #fff;
+    background: darken(#fff, 60%);
     h3 {
       margin-top: 1rem;
     }
@@ -40,6 +40,17 @@ $primary-color: #c8c9ce;
     table {
       width: 100%;
     }
+	#remainer {
+		margin: 3rem 0;
+		background: #98FFBA;
+		h3 {
+			width: 100%;
+			texxt-align: center;
+		}
+	}
+	#chart-title {
+		margin: 2rem 0;
+	}
     .action-panel-row {
       margin: 1rem .5rem;
     }

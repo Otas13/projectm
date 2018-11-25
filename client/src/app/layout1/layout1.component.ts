@@ -8,13 +8,15 @@ import {NewTransactionDialogComponent} from "../new-transaction-dialog/new-trans
   styleUrls: ['./layout1.component.scss'],
 })
 export class Layout1Component extends LayoutComponent {
-  showMenu = true;
   showMenuIcons = true;
   
-  showLastTransactions() {
-	  super.showLastTransactions();
-	  this.showMenu = !this.showMenu;
-  }
+  Tab = {
+    LAST_TRANSACTIONS: 'last',
+    ALL_TRANSACTIONS: 'all',
+    ADD_PAYMENT: 'addTransaction',
+    ADD_RESOURCES: 'addResource',
+    MENU: 'menu'
+  };
   /**
    * otevreni dialogu pro zadani platby
    */
@@ -44,12 +46,11 @@ export class Layout1Component extends LayoutComponent {
       this.showMenuIcons = !this.showMenuIcons;
     });
   }
-	
-  showCompleteHistory(){
-	  super.showCompleteHistory();
-	  this.showMenu = !this.showMenu;
-  }
   showMetro(){
-	  this.showMenu = !this.showMenu;
+	  this.activeTab = this.Tab.MENU;
+  }
+  ngOnInit(){
+	  super.ngOnInit();
+	  this.activeTab = this.Tab.MENU;
   }
 }

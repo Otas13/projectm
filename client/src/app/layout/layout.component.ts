@@ -168,7 +168,7 @@ export class LayoutComponent implements OnInit {
     this.transactionService.push(new Transaction(-300, 'Kartička na MHD', moment().subtract(14, 'day').toDate()));
     this.transactionService.push(new Transaction(-1000, 'Velký nákup', moment().subtract(10, 'day').toDate()));
 
-    //alert(`Úkol scénáře: ${this.route.snapshot.data['ScenarioInstructions']}`);
+    alert(`Úkol scénáře: ${this.route.snapshot.data['ScenarioInstructions']}`);
   }
   get startAmount(): number {
     return this._startAmount;
