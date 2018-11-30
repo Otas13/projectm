@@ -22,7 +22,6 @@ export class Layout5Component extends Layout4Component {
   async ngOnInit() {
     super.ngOnInit();
     this.QRReady.emit(false);
-    this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
     this.generateQRCode(Route.L5S1);
   }
   /**

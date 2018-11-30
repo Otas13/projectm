@@ -1,4 +1,4 @@
-<div *ngIf="showQRCode" class="d-flex flex-column">
+<div *ngIf="!isMobileDev" class="d-flex flex-column">
   <h1>Mobilní zobrazení</h1>
   <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
   <h3><a routerLink="/scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</a></h3>
@@ -7,7 +7,7 @@
     <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>
   </div>
 </div>
-<div class="dark-theme" id="wrapper" [hidden]="showQRCode">
+<div class="dark-theme" id="wrapper" [hidden]="!isMobileDev">
   <div class="d-flex flex-column h-100 w-100" id="menu-wrapper" *ngIf="activeTab === Tab.MENU">
     <h3>ePeněženka</h3>
     <div class="d-flex justify-content-between" id="remainer">
@@ -24,6 +24,8 @@
          (click)="showCompleteHistory()"><span>HISTORIE</span></div>
     <div class="d-flex justify-content-center menu-item" [matTooltip]="getButtonClicks('showCompleteHistory')"
          (click)="showCompleteHistory()" (click)="nextPage()"><span>DALŠÍ SCÉNÁŘ</span></div>
+    <div class="d-flex justify-content-center menu-item" [matTooltip]="getButtonClicks('showCompleteHistory')"
+         (click)="openHelpDialog()"><span>ZOBRAZIT NÁPOVĚDU</span></div>
   </div>
   <div class="d-flex flex-column h-100 w-100" [hidden]="activeTab !== Tab.ALL_TRANSACTIONS">
     <div class="table-wrapper">

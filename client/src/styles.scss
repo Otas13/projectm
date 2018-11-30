@@ -44,18 +44,19 @@ html, body {
   position: absolute!important;
 }
 
-.sc-ins-wrapper {
+.sc-ins-ico {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
 	z-index: 999;
-	background: #fff;
-}
-.sc-ins-icon {
-
-}
-.sc-ins-message {
-
+  font-size: 32px;
+  color: #007bff;
+  &:hover {
+    top: calc(1rem - 2px);
+    right: calc(1rem - 2px);
+    font-size: 36px;
+    transition: all ease-in-out 50ms;
+  }
 }
 
 

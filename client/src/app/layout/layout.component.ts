@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {TransactionService} from "../transaction.service";
 import * as moment from "moment";
 import {Chart} from 'chart.js';
+import {HelpDialogComponent} from "../help-dialog/help-dialog.component";
 
 @Component({
   selector: 'app-layout',
@@ -30,6 +31,8 @@ export class LayoutComponent implements OnInit {
   timer;
   activeTab;
   chart;
+  isMobileDev;
+  isMobileLayout;
   Tab = {
     LAST_TRANSACTIONS: 'last',
     ALL_TRANSACTIONS: 'all',
@@ -48,6 +51,11 @@ export class LayoutComponent implements OnInit {
    */
   constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window) {
     this.dataSource = new MatTableDataSource<Transaction>();
+    this.isMobileDev = (window.innerWidth < 720) && !this.dataService.isAdmin;
+    this.isMobileLayout = this.route.snapshot.data['mobile'];
+    if(this.isMobileLayout == this.isMobileDev) {
+      this.openHelpDialog();
+    }
   }
 
   /**
@@ -58,6 +66,13 @@ export class LayoutComponent implements OnInit {
     const dialogRef = this.dialog.open(NewTransactionDialogComponent, {
       width: '250px',
       data: {payment: true}
+    });
+  }
+
+  openHelpDialog(){
+    const dialogRef = this.dialog.open(HelpDialogComponent, {
+      width: '420px',
+      data: {scenarioInstructions: this.route.snapshot.data['ScenarioInstructions']}
     });
   }
 
@@ -105,7 +120,7 @@ export class LayoutComponent implements OnInit {
    */
   ngOnInit(): void {
     if (!this.dataService.isLoggedIn) {
-      //this._router.navigateByUrl('/login');
+      this._router.navigateByUrl('/login');
     }
 
     this.chart = new Chart('canvas', {
@@ -167,8 +182,6 @@ export class LayoutComponent implements OnInit {
     this.transactionService.push(new Transaction(-3000, 'Úspory', moment().subtract(20, 'day').toDate()));
     this.transactionService.push(new Transaction(-300, 'Kartička na MHD', moment().subtract(14, 'day').toDate()));
     this.transactionService.push(new Transaction(-1000, 'Velký nákup', moment().subtract(10, 'day').toDate()));
-
-    //alert(`Úkol scénáře: ${this.route.snapshot.data['ScenarioInstructions']}`);
   }
   get startAmount(): number {
     return this._startAmount;

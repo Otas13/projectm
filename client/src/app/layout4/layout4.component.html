@@ -1,4 +1,4 @@
-<div *ngIf="showQRCode" class="d-flex flex-column">
+<div *ngIf="!isMobileDev" class="d-flex flex-column">
   <h1>Mobilní zobrazení</h1>
   <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
   <h3><a routerLink="/scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</a></h3>
@@ -7,7 +7,7 @@
     <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>
   </div>
 </div>
-<div [hidden]="showQRCode" class="dark-theme">
+<div [hidden]="!isMobileDev" class="dark-theme">
   <mat-sidenav-container id="main-side-nav">
     <mat-sidenav [disableClose]="false" [opened]="showSidebar" (closedStart)="toggleSidebar(false)">
       <div class="d-flex flex-column" id="sidenav-content-list">
@@ -23,6 +23,7 @@
         <span (click)="toggleSidebar(false)" [matTooltip]="getButtonClicks('showCompleteHistory')"
               (click)="showCompleteHistory()">HISTORIE</span>
         <span (click)="toggleSidebar(false)" (click)="nextPage()">DALŠÍ SCÉNÁŘ</span>
+        <span (click)="toggleSidebar(false)" (click)="openHelpDialog()">ZOBRAZIT NÁPOVĚDU</span>
       </div>
     </mat-sidenav>
     <mat-sidenav-content>

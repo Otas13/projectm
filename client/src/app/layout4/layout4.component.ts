@@ -12,7 +12,6 @@ import {Route} from "../routes.enum";
   styleUrls: ['./layout4.component.scss']
 })
 export class Layout4Component extends LayoutComponent {
-  showQRCode;
   QRReady = new EventEmitter<boolean>();
   QRDataUrl;
   showSidebar = false;
@@ -20,8 +19,8 @@ export class Layout4Component extends LayoutComponent {
   async ngOnInit() {
     super.ngOnInit();
     this.QRReady.emit(false);
-    this.showQRCode = (window.innerWidth > 720) && !this.dataService.isAdmin;
     this.generateQRCode(Route.L4S1);
+    this.isMobileLayout = true;
   }
 
   toggleSidebar(show: boolean) {

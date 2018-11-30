@@ -1,4 +1,7 @@
 <ng-heatmap [hidden]="hideMap" [active]="isMapActive" [(heatmapData)]="heatmapData" class="heatmap"></ng-heatmap>
+<div class="sc-ins-ico" matTooltip="Zobrazí nápovědu ke scénáři." (click)="openHelpDialog()">
+  <i class="fas fa-info-circle"></i>
+</div>
 <div id="wrapper">
   <div id="info-button" [matTooltip]="getButtonClicks('showLastTransactions')" (click)="showLastTransactions($event)">
     <span>INFO</span>
