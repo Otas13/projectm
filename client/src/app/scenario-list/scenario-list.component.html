@@ -3,6 +3,10 @@
     <div class="col-md-10 offset-md-1 col-sm-12">
       <h1 [hidden]="!isMobileDevice">Děkujeme, nyní můžete pokračovat v desktopové aplikaci.</h1>
       <h1 [hidden]="isMobileDevice">Seznam testovacích layoutů</h1>
+      <div>
+        Vítejte v testovací aplikaci. Pro bližší popis aplikace se můžete podívat do manuálu. Nyní si vyberte layout, pro spuštění testování.
+      </div>
+      <br />
       <div class="list-group" [hidden]="isMobileDevice">
         <a routerLink="/l1s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
