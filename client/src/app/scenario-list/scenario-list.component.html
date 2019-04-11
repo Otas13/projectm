@@ -6,31 +6,31 @@
       <div class="list-group" [hidden]="isMobileDevice">
         <a routerLink="/l1s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Layout 1</h5>
+            <h5 class="mb-1">Layout 1 <span *ngIf="isL1Done" class="layout-done">Dokončeno</span></h5>
           </div>
           <p class="mb-1">Desktopový layout.</p>
         </a>
         <a routerLink="/l2s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Layout 2</h5>
+            <h5 class="mb-1">Layout 2 <span *ngIf="isL2Done" class="layout-done">Dokončeno</span></h5>
           </div>
           <p class="mb-1">Desktopový layout.</p>
         </a>
         <a routerLink="/l3s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Layout 3</h5>
+            <h5 class="mb-1">Layout 3 <span *ngIf="isL3Done" class="layout-done">Dokončeno</span></h5>
           </div>
           <p class="mb-1">Desktopový layout.</p>
         </a>
         <a routerLink="/l4s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Layout 4</h5>
+            <h5 class="mb-1">Layout 4 <span *ngIf="isL4Done" class="layout-done">Dokončeno</span></h5>
           </div>
           <p class="mb-1">Mobilní layout.</p>
         </a>
         <a routerLink="/l5s1" routerLinkActive="active" class="list-group-item list-group-item-action flex-column align-items-start">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Layout 5</h5>
+            <h5 class="mb-1">Layout 5 <span *ngIf="isL5Done" class="layout-done">Dokončeno</span></h5>
           </div>
           <p class="mb-1">Mobilní layout.</p>
         </a>

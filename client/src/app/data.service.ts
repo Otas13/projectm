@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import * as moment from "moment";
+import _date = moment.unitOfTime._date;
 export enum Scenario {
   ONE = 'scenarioOne', TWO = 'scenarioTwo', THREE = 'scenarioThree', FOUR = 'scenarioFour'
 }
@@ -41,6 +43,12 @@ export class DataService {
   constructor() {}
   setKey(layout: Layout, scenario: Scenario, key: DataKey, value){
     this._data[layout][scenario][key] = value;
+  }
+  isLayoutDone(layout) {
+    return Object.keys(this._data[layout][Scenario.ONE]).length !== 0
+    && Object.keys(this._data[layout][Scenario.TWO]).length !== 0
+    && Object.keys(this._data[layout][Scenario.THREE]).length !== 0
+    && Object.keys(this._data[layout][Scenario.FOUR]).length !== 0
   }
   flushData(){
     fetch('/api/put', {

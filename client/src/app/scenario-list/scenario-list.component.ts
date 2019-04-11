@@ -1,5 +1,5 @@
 import {Component, HostListener, Inject, OnInit} from '@angular/core';
-import {DataKey, DataService} from "../data.service";
+import {DataKey, DataService, Layout} from "../data.service";
 import {Router} from "@angular/router";
 import {Route} from "../routes.enum";
 
@@ -10,7 +10,18 @@ import {Route} from "../routes.enum";
 })
 export class ScenarioListComponent implements OnInit {
   isMobileDevice;
-  constructor(private _router: Router, private dataService: DataService, @Inject(Window) protected window: Window) { }
+  isL1Done;
+  isL2Done;
+  isL3Done;
+  isL4Done;
+  isL5Done;
+  constructor(private _router: Router, private dataService: DataService, @Inject(Window) protected window: Window) {
+    this.isL1Done = dataService.isLayoutDone(Layout.ONE);
+    this.isL2Done = dataService.isLayoutDone(Layout.TWO);
+    this.isL3Done = dataService.isLayoutDone(Layout.THREE);
+    this.isL4Done = dataService.isLayoutDone(Layout.FOUR);
+    this.isL5Done = dataService.isLayoutDone(Layout.FIVE);
+  }
 
   ngOnInit() {
     if(!this.dataService.isLoggedIn) {
