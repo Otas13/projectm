@@ -2,6 +2,7 @@ import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {DataKey, DataService, Layout} from "../data.service";
 import {Router} from "@angular/router";
 import {Route} from "../routes.enum";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-scenario-list',
@@ -15,7 +16,7 @@ export class ScenarioListComponent implements OnInit {
   isL3Done;
   isL4Done;
   isL5Done;
-  constructor(private _router: Router, private dataService: DataService, @Inject(Window) protected window: Window) {
+  constructor(private _router: Router, private dataService: DataService, protected deviceService: DeviceDetectorService) {
     this.isL1Done = dataService.isLayoutDone(Layout.ONE);
     this.isL2Done = dataService.isLayoutDone(Layout.TWO);
     this.isL3Done = dataService.isLayoutDone(Layout.THREE);
@@ -27,11 +28,11 @@ export class ScenarioListComponent implements OnInit {
     if(!this.dataService.isLoggedIn) {
       this._router.navigateByUrl(Route.LOGIN);
     }
-    this.isMobileDevice = (window.innerWidth < 720);
+    this.isMobileDevice = this.deviceService.isMobile() || this.deviceService.isTablet();
   }
 
   @HostListener('document:keyup', ['$event'])
-  onMousemove(ev: KeyboardEvent) {
+  onKeyUp(ev: KeyboardEvent) {
     switch(ev.key){
       case 't':
         this._router.navigateByUrl('tester-list');

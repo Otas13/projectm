@@ -9,6 +9,7 @@ import {TransactionService} from "../transaction.service";
 import * as moment from "moment";
 import {Chart} from 'chart.js';
 import {HelpDialogComponent} from "../help-dialog/help-dialog.component";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
   selector: 'app-layout',
@@ -42,16 +43,17 @@ export class LayoutComponent implements OnInit {
 
   /**
    *
-   * @param {TransactionService} transactionService
-   * @param {MatDialog} dialog
-   * @param {ActivatedRoute} route
-   * @param {Router} _router
-   * @param {DataService} dataService
-   * @param {Window} window
+   * @param transactionService
+   * @param dialog
+   * @param route
+   * @param _router
+   * @param dataService
+   * @param window
+   * @param deviceService
    */
-  constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window) {
+  constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window, protected deviceService: DeviceDetectorService) {
     this.dataSource = new MatTableDataSource<Transaction>();
-    this.isMobileDev = (window.innerWidth < 720) && !this.dataService.isAdmin;
+    this.isMobileDev = (this.deviceService.isMobile() || this.deviceService.isTablet()) && !this.dataService.isAdmin;
     this.isMobileLayout = this.route.snapshot.data['mobile'];
     if(this.isMobileLayout == this.isMobileDev) {
       this.openHelpDialog();

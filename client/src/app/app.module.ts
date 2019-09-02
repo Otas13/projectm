@@ -36,6 +36,7 @@ import { Layout5Component } from './layout5/layout5.component';
 import { DialogL5Component } from './dialog-l5/dialog-l5.component';
 import {OverlayContainer} from "@angular/cdk/overlay";
 import { HelpDialogComponent } from './help-dialog/help-dialog.component';
+import {DeviceDetectorModule} from "ngx-device-detector";
 
 export const appRoutes: Routes =
   [
@@ -91,6 +92,7 @@ export const appRoutes: Routes =
     HelpDialogComponent
   ],
   imports: [
+    DeviceDetectorModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true}

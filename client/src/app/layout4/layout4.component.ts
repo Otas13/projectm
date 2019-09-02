@@ -5,6 +5,9 @@ import {DataKey, DataService} from "../data.service";
 import {LayoutComponent} from "../layout/layout.component";
 import * as moment from  "moment";
 import {Route} from "../routes.enum";
+import {DeviceDetectorService} from "ngx-device-detector";
+import {TransactionService} from "../transaction.service";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-layout4',
@@ -42,7 +45,7 @@ export class Layout4Component extends LayoutComponent {
   }
 
   nextPage() {
-    if(!this.dataService.isAdmin && (window.innerWidth < 720)) {
+    if(!this.dataService.isAdmin && (!this.deviceService.isDesktop())) {
       const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
       this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
       this.setDataKey(DataKey.HEATMAP, this.heatmapData);
