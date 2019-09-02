@@ -14,6 +14,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.set('view engine', 'html');
 app.use(sassMiddleware({
   src: path.join(__dirname, 'client/dist/projekt'),
   dest: path.join(__dirname, 'client/dist/projekt'),
