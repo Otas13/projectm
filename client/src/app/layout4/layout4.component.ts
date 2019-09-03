@@ -45,7 +45,7 @@ export class Layout4Component extends LayoutComponent {
   }
 
   nextPage() {
-    if(!this.dataService.isAdmin && (!this.deviceService.isDesktop())) {
+    if(!this.dataService.isAdmin && !this.deviceService.isDesktop()) {
       const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
       this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
       this.setDataKey(DataKey.HEATMAP, this.heatmapData);

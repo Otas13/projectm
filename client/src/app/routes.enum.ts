@@ -27,6 +27,6 @@ export enum Route {
 export enum ScenarioInstruction {
   ONE = 'Nalezni zůstatek na peněžence a zdvojnásob ho přidáním prostředků ve stejné výšši.',
   TWO = 'Přidej libovolný výdaj.',
-  THREE = 'Otevři seznam transakcí, najdi položku X a vymaž jí.',
+  THREE = 'Otevři seznam transakcí, najdi položku nájemné a vymaž jí.',
   FOUR = 'Přidej příjem - výplata ve výšši 30 000,- a poté zjisti celkový stav konta a přidej výdaj tak, aby hodnota peněženky byla přesně 30 000,-',
 }
