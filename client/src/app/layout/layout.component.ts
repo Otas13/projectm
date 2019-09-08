@@ -251,7 +251,7 @@ export class LayoutComponent implements OnInit {
 
   nextPage() {
     if (!this.dataService.isAdmin) {
-
+      this.dataService.flushData();
     }
     const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
     this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
