@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {LayoutComponent} from "../layout/layout.component";
 import {DialogL3Component} from "../dialog-l3/dialog-l3.component";
 
@@ -38,9 +38,5 @@ export class Layout3Component extends LayoutComponent {
     dialogRef.afterClosed().subscribe(result => {
       this.activeTab = currentTab;
     });
-  }
-
-  ngOnInit(){
-    super.ngOnInit();
   }
 }
