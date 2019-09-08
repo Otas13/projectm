@@ -3,7 +3,7 @@
     <div class="col-md-10 offset-md-1 col-sm-12">
       <h1 [hidden]="!isMobileDevice">Děkujeme, nyní můžete pokračovat v desktopové aplikaci.</h1>
       <h1 [hidden]="isMobileDevice">Seznam testovacích layoutů</h1>
-      <div>
+      <div [hidden]="isMobileDevice">
         Vítejte v testovací aplikaci. Pro bližší popis aplikace se můžete podívat do manuálu. Nyní si vyberte layout, pro spuštění testování.
       </div>
       <br />

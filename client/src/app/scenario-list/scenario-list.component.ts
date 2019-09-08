@@ -25,7 +25,7 @@ export class ScenarioListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(!this.dataService.isLoggedIn) {
+    if (!this.dataService.isLoggedIn) {
       this._router.navigateByUrl(Route.LOGIN);
     }
     this.isMobileDevice = this.deviceService.isMobile() || this.deviceService.isTablet();

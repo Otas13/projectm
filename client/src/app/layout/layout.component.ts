@@ -53,9 +53,9 @@ export class LayoutComponent implements OnInit {
    */
   constructor(protected transactionService: TransactionService, protected dialog: MatDialog, protected route: ActivatedRoute, protected _router: Router, protected dataService: DataService, @Inject(Window) protected window: Window, protected deviceService: DeviceDetectorService) {
     this.dataSource = new MatTableDataSource<Transaction>();
-    this.isMobileDev = (this.deviceService.isMobile() || this.deviceService.isTablet()) && !this.dataService.isAdmin;
+    this.isMobileDev = (this.deviceService.isMobile() || this.deviceService.isTablet()) || this.dataService.isAdmin;
     this.isMobileLayout = this.route.snapshot.data['mobile'];
-    if(this.isMobileLayout == this.isMobileDev) {
+    if (this.isMobileLayout === this.isMobileDev) {
       this.openHelpDialog();
     }
   }

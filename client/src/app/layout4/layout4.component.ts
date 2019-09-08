@@ -1,13 +1,9 @@
-import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {Component, EventEmitter} from '@angular/core';
 import QRCode from 'qrcode';
-import {DataKey, DataService} from "../data.service";
+import {DataKey} from "../data.service";
 import {LayoutComponent} from "../layout/layout.component";
-import * as moment from  "moment";
+import * as moment from "moment";
 import {Route} from "../routes.enum";
-import {DeviceDetectorService} from "ngx-device-detector";
-import {TransactionService} from "../transaction.service";
-import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-layout4',
@@ -30,11 +26,11 @@ export class Layout4Component extends LayoutComponent {
     this.showSidebar = show;
   }
 
-  openSidenav(){
+  openSidenav() {
     this.saveButtonClick('openSidenav');
   }
 
-  async generateQRCode(route){
+  async generateQRCode(route) {
     try {
       this.QRDataUrl = await QRCode.toDataURL(`https://${this.window.location.hostname}?username=${this.dataService.username}&layout=${route}`);
       this.QRReady.emit(true);
@@ -45,12 +41,12 @@ export class Layout4Component extends LayoutComponent {
   }
 
   nextPage() {
-    if(!this.dataService.isAdmin && !this.deviceService.isDesktop()) {
-      const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
-      this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
-      this.setDataKey(DataKey.HEATMAP, this.heatmapData);
-      this._router.navigateByUrl(this.route.snapshot.data['nextPage']);
-      this.setDataKey(DataKey.HEATMAP, this.heatmapData);
+    const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
+    this.setDataKey(DataKey.SPENT_MINUTES, spentTime);
+    this.setDataKey(DataKey.HEATMAP, this.heatmapData);
+    this._router.navigateByUrl(this.route.snapshot.data['nextPage']);
+    this.setDataKey(DataKey.HEATMAP, this.heatmapData);
+    if (!this.dataService.isAdmin) {
       this.dataService.flushData();
     }
   }
