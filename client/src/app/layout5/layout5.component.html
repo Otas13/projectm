@@ -1,7 +1,7 @@
 <div *ngIf="!isMobileDev" class="d-flex flex-column">
   <h1>Mobilní zobrazení</h1>
   <h3>Naskenujte prosím QR kód a pokračujte v telefonu</h3>
-  <h3><a routerLink="/scenario-list">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</a></h3>
+  <h3><a routerLink="/scenario-list" (click)="setL5Visited()">Po dokončení testu na telefonu se vraťte na seznam layoutů zde</a></h3>
   <mat-spinner *ngIf="!QRReady"></mat-spinner>
   <div class="d-flex justify-content-center">
     <img width="200" height="200" *ngIf="QRReady" src="{{QRDataUrl}}"/>

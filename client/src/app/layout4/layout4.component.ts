@@ -40,6 +40,10 @@ export class Layout4Component extends LayoutComponent {
     }
   }
 
+  setL4Visited() {
+    this.dataService.isL4Visited = true;
+  }
+
   nextPage() {
     const spentTime = moment.duration(moment().diff(this.timer)).asMinutes();
     this.setDataKey(DataKey.SPENT_MINUTES, spentTime);

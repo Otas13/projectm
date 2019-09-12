@@ -19,6 +19,17 @@ export enum DataKey {
   providedIn: 'root'
 })
 export class DataService {
+  private _isL4Visited = false;
+  private _isL5Visited = false;
+
+  set isL4Visited(val: boolean) {
+    this._isL4Visited = val;
+  }
+
+  set isL5Visited(val: boolean) {
+    this._isL5Visited = val;
+  }
+
   get data() {
     return this._data;
   }
@@ -61,6 +72,14 @@ export class DataService {
       && Object.keys(this._data[layout][Scenario.TWO]).length !== 0
       && Object.keys(this._data[layout][Scenario.THREE]).length !== 0
       && Object.keys(this._data[layout][Scenario.FOUR]).length !== 0
+  }
+
+  get isL4Done() {
+    return this.isLayoutDone(Layout.FOUR) || this._isL4Visited;
+  }
+
+  get isL5Done() {
+    return this.isLayoutDone(Layout.FIVE) || this._isL5Visited;
   }
 
   flushData() {

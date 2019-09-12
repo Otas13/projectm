@@ -20,8 +20,8 @@ export class ScenarioListComponent implements OnInit {
     this.isL1Done = dataService.isLayoutDone(Layout.ONE);
     this.isL2Done = dataService.isLayoutDone(Layout.TWO);
     this.isL3Done = dataService.isLayoutDone(Layout.THREE);
-    this.isL4Done = dataService.isLayoutDone(Layout.FOUR);
-    this.isL5Done = dataService.isLayoutDone(Layout.FIVE);
+    this.isL4Done = dataService.isL4Done;
+    this.isL5Done = dataService.isL5Done;
   }
 
   ngOnInit() {

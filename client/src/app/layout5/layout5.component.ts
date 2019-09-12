@@ -55,4 +55,8 @@ export class Layout5Component extends Layout4Component {
       this.activeTab = currentTab;
     });
   }
+
+  setL5Visited() {
+    this.dataService.isL5Visited = true;
+  }
 }
