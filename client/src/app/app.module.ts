@@ -95,7 +95,7 @@ export const appRoutes: Routes =
     DeviceDetectorModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true}
+      {enableTracing: false}
     ),
     BrowserModule,
     BrowserAnimationsModule,

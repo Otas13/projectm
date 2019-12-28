@@ -200,7 +200,9 @@ export class LayoutComponent implements OnInit {
   getButtonClicks(buttonId) {
     buttonId = this.getButtonId(buttonId);
     if (this.dataService.isAdmin) {
-      return buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) : 0;
+      return buttonId in this.dataService.data[this.layout][this.scenario] ?
+        Array.isArray(this.getDataByKey(buttonId)) ? this.getDataByKey(buttonId).map(e => moment(e).format('HH:mm:ss')).join(', ') : Number(this.getDataByKey(buttonId))
+        : 0;
     } else {
       return "";
     }
@@ -213,13 +215,16 @@ export class LayoutComponent implements OnInit {
   saveButtonClick(buttonId: any) {
     if(!this.dataService.isAdmin) {
       buttonId = this.getButtonId(buttonId);
-      let clickCount = buttonId in this.dataService.data[this.layout][this.scenario] ? Number(this.getDataByKey(buttonId)) + 1 : 1;
-      this.setDataKey(buttonId, clickCount);
+      if (buttonId in this.dataService.data[this.layout][this.scenario]) {
+        this.getDataByKey(buttonId).push(moment().toJSON());
+      } else {
+        this.setDataKey(buttonId, [moment().toJSON()]);
+      }
     }
   }
 
   @HostListener('document:keyup', ['$event'])
-  onMousemove(ev: KeyboardEvent) {
+  onKeyUp(ev: KeyboardEvent) {
     switch (ev.key) {
       case 'm':
         if (this.dataService.isAdmin) {

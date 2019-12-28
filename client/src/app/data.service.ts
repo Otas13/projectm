@@ -106,10 +106,12 @@ export class DataService {
 
   getTestResult(id): Promise<any> {
     return fetch(`/api/get/${id}`)
-      .then(res => res.json())
+      .then(res => {
+        return res.json();
+      })
       .then(json => {
         json.username = this._data.username;
-        this._data = json;
+        this._data = Object.assign(this._data, json);
         return true
       });
   }
